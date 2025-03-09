@@ -1,11 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect } from "react";
-
-const ThemeContext = createContext({
-  theme: "",
-  setTheme: (theme: string) => {},
-});
+import { useEffect } from "react";
 
 export default function ThemeProvider({
   children,
