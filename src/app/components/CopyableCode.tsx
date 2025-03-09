@@ -34,80 +34,101 @@ export default function CopyableCode({
       return <code className="text-gray-800 dark:text-gray-200">{code}</code>;
     }
 
-    let processedCode = code;
-    const highlights: {
-      index: number;
-      highlightedText: string;
-      originalText: string;
+    // Create an array to store all character positions and their highlight status
+    const positions = new Array(code.length).fill(null);
+
+    // Mark all highlighted positions
+    highlightedParts.forEach((highlight, highlightIndex) => {
+      const escapedText = highlight.text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      const regex = new RegExp(escapedText, "g");
+      let match;
+
+      while ((match = regex.exec(code)) !== null) {
+        // Check if this position is already highlighted
+        const start = match.index;
+        const end = start + match[0].length;
+        let canHighlight = true;
+
+        // Check if any position in this range is already highlighted
+        for (let i = start; i < end; i++) {
+          if (positions[i] !== null) {
+            canHighlight = false;
+            break;
+          }
+        }
+
+        // If we can highlight this range, mark all positions
+        if (canHighlight) {
+          for (let i = start; i < end; i++) {
+            positions[i] = {
+              text: highlight.text,
+              explanation: highlight.explanation,
+              highlightIndex,
+            };
+          }
+        }
+      }
+    });
+
+    // Convert positions array into segments
+    const segments: {
+      text: string;
+      isHighlight: boolean;
       explanation?: string;
+      highlightIndex?: number;
     }[] = [];
 
-    // Replace all highlighted parts with markers and store their positions
-    highlightedParts.forEach((part, idx) => {
-      const marker = `__HIGHLIGHT_${idx}__`;
-      const regex = new RegExp(
-        part.text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"),
-        "g"
-      );
+    let currentSegment: (typeof segments)[0] | null = null;
 
-      // Find all occurrences and store them
-      let match;
-      while ((match = regex.exec(processedCode)) !== null) {
-        highlights.push({
-          index: match.index,
-          highlightedText: marker,
-          originalText: part.text,
-          explanation: part.explanation,
-        });
+    for (let i = 0; i < code.length; i++) {
+      const pos = positions[i];
+
+      if (
+        !currentSegment ||
+        currentSegment.isHighlight !== !!pos ||
+        (pos && currentSegment.highlightIndex !== pos.highlightIndex)
+      ) {
+        if (currentSegment) {
+          segments.push(currentSegment);
+        }
+        currentSegment = {
+          text: code[i],
+          isHighlight: !!pos,
+          explanation: pos?.explanation,
+          highlightIndex: pos?.highlightIndex,
+        };
+      } else {
+        currentSegment.text += code[i];
       }
-
-      // Replace in the code
-      processedCode = processedCode.replace(regex, marker);
-    });
-
-    // Sort highlights by their position in the code
-    highlights.sort((a, b) => a.index - b.index);
-
-    // Split the code at highlight positions and intersperse with highlighted spans
-    const parts: React.ReactNode[] = [];
-    let lastIndex = 0;
-
-    highlights.forEach((highlight, idx) => {
-      // Add the text before this highlight
-      const partBeforeHighlight = processedCode.substring(
-        lastIndex,
-        highlight.index
-      );
-      if (partBeforeHighlight) {
-        parts.push(<span key={`plain-${idx}`}>{partBeforeHighlight}</span>);
-      }
-
-      // Add the highlighted part
-      parts.push(
-        <span
-          key={`highlight-${idx}`}
-          className="bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-300 rounded px-1 font-bold group relative"
-          title={highlight.explanation || ""}
-        >
-          {highlight.originalText}
-          {highlight.explanation && (
-            <span className="absolute -top-10 left-0 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-2 rounded text-xs text-gray-700 dark:text-gray-300 opacity-0 group-hover:opacity-100 transition-opacity w-max max-w-48 shadow-md pointer-events-none z-10">
-              {highlight.explanation}
-            </span>
-          )}
-        </span>
-      );
-
-      lastIndex = highlight.index + highlight.highlightedText.length;
-    });
-
-    // Add any remaining text after the last highlight
-    const remainingText = processedCode.substring(lastIndex);
-    if (remainingText) {
-      parts.push(<span key="remaining">{remainingText}</span>);
     }
 
-    return <code className="text-gray-800 dark:text-gray-200">{parts}</code>;
+    if (currentSegment) {
+      segments.push(currentSegment);
+    }
+
+    // Render segments
+    return (
+      <code className="text-gray-800 dark:text-gray-200">
+        {segments.map((segment, idx) =>
+          segment.isHighlight ? (
+            <span
+              key={`highlight-${idx}`}
+              className="bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-300 rounded px-1 font-bold group relative"
+              title={segment.explanation || ""}
+            >
+              {segment.text}
+              {segment.explanation && (
+                <span className="absolute -top-10 left-0 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-2 rounded text-xs text-gray-700 dark:text-gray-300 opacity-0 group-hover:opacity-100 transition-opacity w-max max-w-48 shadow-md pointer-events-none z-10">
+                  {segment.explanation}
+                </span>
+              )}
+            </span>
+          ) : (
+            <span key={`plain-${idx}`}>{segment.text}</span>
+          )
+        )}
+      </code>
+    );
   };
 
   return (
