@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ConceptCard from "./components/ConceptCard";
 
 export default function Home() {
   return (
@@ -83,7 +84,139 @@ export default function Home() {
         </Link>
       </div>
 
-      {/* Features Section */}
+      {/* Core CSS Layout Concepts */}
+      <section className="mt-20">
+        <h2 className="text-2xl font-bold mb-8 text-center bg-gradient-to-r from-indigo-500 to-purple-600 text-transparent bg-clip-text">
+          Core CSS Layout Concepts
+        </h2>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto mb-12">
+          <ConceptCard
+            title="What is a Gap?"
+            description="Gap creates space between elements without adding margins. Think of it like an invisible spacer that keeps things neatly apart - just like the space between train cars."
+            example={`/* CSS */
+.container {
+  gap: 1rem;  /* Adds 1rem of space between all items */
+}
+
+/* Tailwind */
+<div className="gap-4">  <!-- 1rem of space between items -->
+  <div>Item 1</div>
+  <div>Item 2</div>
+</div>`}
+            color="indigo"
+            icon={
+              <svg
+                className="w-8 h-8 text-indigo-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"
+                ></path>
+              </svg>
+            }
+          />
+
+          <ConceptCard
+            title="What is Spacing?"
+            description="Spacing helps organize content by controlling the distance between elements. It's like making sure there's enough room between books on a shelf so you can easily grab the one you want."
+            example={`/* Tailwind classes for spacing */
+p-4    /* Padding on all sides */
+px-4   /* Horizontal padding (left and right) */
+py-4   /* Vertical padding (top and bottom) */
+m-4    /* Margin on all sides */
+mx-4   /* Horizontal margin */
+my-4   /* Vertical margin */`}
+            color="purple"
+            icon={
+              <svg
+                className="w-8 h-8 text-purple-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"
+                ></path>
+              </svg>
+            }
+          />
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          <ConceptCard
+            title="One vs Two Dimensional Layout"
+            description="Flexbox works in one direction (like a line of people), while Grid works in two dimensions (like a chess board). Flexbox is perfect for rows or columns, while Grid excels at complex layouts with rows AND columns."
+            example={`/* Flexbox - One dimension */
+<div className="flex">  <!-- Items arranged in a row -->
+  <div>Item 1</div>
+  <div>Item 2</div>
+</div>
+
+/* Grid - Two dimensions */
+<div className="grid grid-cols-3 grid-rows-2">  <!-- 3×2 grid -->
+  <div>Item 1</div>
+  <div>Item 2</div>
+  <!-- ... -->
+</div>`}
+            color="blue"
+            icon={
+              <svg
+                className="w-8 h-8 text-blue-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+                ></path>
+              </svg>
+            }
+          />
+
+          <ConceptCard
+            title="Alignment vs Justification"
+            description="Alignment controls positioning along the cross axis, while justification controls the main axis. Think of it like a bookshelf: justification arranges books across the shelf, while alignment controls how tall books are positioned vertically."
+            example={`/* In a horizontal flexbox: */
+justify-start   /* Position items at the start (left) */
+justify-center  /* Center items horizontally */
+justify-end     /* Position items at the end (right) */
+
+items-start     /* Align items at the top */
+items-center    /* Center items vertically */
+items-end       /* Align items at the bottom */`}
+            color="indigo"
+            icon={
+              <svg
+                className="w-8 h-8 text-indigo-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h16m-7 6h7"
+                ></path>
+              </svg>
+            }
+          />
+        </div>
+      </section>
+
+      {/* Why Learn Section */}
       <section className="mt-20">
         <h2 className="text-2xl font-bold mb-8 text-center">
           Why Learn Flexbox & Grid?
