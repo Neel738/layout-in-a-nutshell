@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Navigation() {
   const pathname = usePathname();
@@ -10,6 +11,7 @@ export default function Navigation() {
     { path: "/", label: "Home" },
     { path: "/flexbox", label: "Flexbox" },
     { path: "/grid", label: "Grid" },
+    { path: "/examples", label: "Examples" },
   ];
 
   return (
@@ -18,10 +20,10 @@ export default function Navigation() {
         <div className="flex items-center justify-between h-16">
           <div className="flex-shrink-0 flex items-center">
             <span className="text-xl font-bold bg-gradient-to-r from-indigo-500 to-purple-600 text-transparent bg-clip-text">
-              FlexGrid Guide
+              CSS in a Nutshell
             </span>
           </div>
-          <div className="hidden md:block">
+          <div className="hidden md:flex md:items-center">
             <div className="ml-10 flex items-center space-x-4">
               {navItems.map((item) => (
                 <Link
@@ -36,17 +38,18 @@ export default function Navigation() {
                   {item.label}
                 </Link>
               ))}
+              <ThemeToggle />
             </div>
           </div>
 
-          {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
-            <div className="flex space-x-4">
+          {/* Mobile menu */}
+          <div className="md:hidden flex items-center space-x-2">
+            <div className="flex space-x-2">
               {navItems.map((item) => (
                 <Link
                   key={item.path}
                   href={item.path}
-                  className={`rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+                  className={`rounded-md px-2 py-1 text-sm font-medium transition-colors ${
                     pathname === item.path
                       ? "bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300"
                       : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
@@ -56,6 +59,7 @@ export default function Navigation() {
                 </Link>
               ))}
             </div>
+            <ThemeToggle />
           </div>
         </div>
       </div>
