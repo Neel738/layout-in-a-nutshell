@@ -12,13 +12,6 @@ export const Footer = () => {
             width={400}
             height={400}
           />
-          <p className="text-sm text-gray-500">
-            Handcrafted by me
-            <span className="text-xs text-neutral-600 dark:text-neutral-600">
-              {" "}
-              (with ❤️, ofc)
-            </span>
-          </p>
 
           <p className="text-sm text-gray-500 max-w-xl">
             This site helps you master Flexbox & Grid with Tailwind CSS through
