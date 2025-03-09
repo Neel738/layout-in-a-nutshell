@@ -68,12 +68,12 @@ export default function CodeDisplay({
       parts.push(
         <span
           key={`highlight-${idx}`}
-          className={`bg-indigo-100 dark:bg-indigo-900/40 text-indigo-800 dark:text-indigo-300 rounded px-1 font-semibold group relative`}
+          className={`bg-amber-200 dark:bg-amber-800/60 text-amber-900 dark:text-amber-100 rounded px-1.5 font-semibold group relative shadow-sm`}
           title={highlight.explanation || ""}
         >
           {highlight.originalText}
           {highlight.explanation && (
-            <span className="absolute -top-10 left-0 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-2 rounded text-xs text-gray-700 dark:text-gray-300 opacity-0 group-hover:opacity-100 transition-opacity w-max max-w-48 shadow-md pointer-events-none z-10">
+            <span className="absolute -top-16 left-0 bg-white dark:bg-gray-900 border-2 border-amber-200 dark:border-amber-800 p-2.5 rounded-lg text-xs text-gray-800 dark:text-gray-100 opacity-0 group-hover:opacity-100 transition-opacity w-max max-w-[300px] shadow-lg pointer-events-none z-10">
               {highlight.explanation}
             </span>
           )}
@@ -93,8 +93,8 @@ export default function CodeDisplay({
   };
 
   return (
-    <div className="overflow-x-auto rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
-      <pre className="p-4 text-sm font-mono text-gray-800 dark:text-gray-200 overflow-x-auto whitespace-pre-wrap">
+    <div className="overflow-x-auto rounded-lg bg-gray-100 dark:bg-gray-950 border-2 border-gray-300 dark:border-gray-700 shadow-md">
+      <pre className="p-5 text-sm font-mono text-gray-900 dark:text-gray-100 overflow-x-auto whitespace-pre-wrap">
         {renderHighlightedCode()}
       </pre>
     </div>

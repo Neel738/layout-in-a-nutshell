@@ -86,7 +86,7 @@ export default function CopyableCode({
       parts.push(
         <span
           key={`highlight-${idx}`}
-          className="bg-indigo-100 dark:bg-indigo-900/40 text-indigo-800 dark:text-indigo-300 rounded px-1 group relative"
+          className="bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-300 rounded px-1 font-bold group relative"
           title={highlight.explanation || ""}
         >
           {highlight.originalText}

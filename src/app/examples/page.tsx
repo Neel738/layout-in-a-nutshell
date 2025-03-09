@@ -279,7 +279,7 @@ function ExampleTab({
   title,
 }: ExampleTabProps) {
   return (
-    <div className="space-y-8">
+    <div className="space-y-8" id={title.toLowerCase().replace(/\s+/g, "-")}>
       <div>
         <h2 className="text-2xl font-bold mb-6 bg-gradient-to-r from-indigo-500 to-purple-600 text-transparent bg-clip-text">
           {title}
@@ -307,17 +307,17 @@ function ExampleTab({
         </Tabs>
       </div>
 
-      <div className="p-6 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg border border-indigo-100 dark:border-indigo-800/40">
-        <h3 className="text-lg font-semibold mb-4 text-indigo-700 dark:text-indigo-300">
+      <div className="p-6 bg-amber-50 dark:bg-amber-900/10 rounded-lg border border-amber-100 dark:border-amber-800/30">
+        <h3 className="text-lg font-semibold mb-4 text-amber-700 dark:text-amber-300">
           Key Layout Concepts
         </h3>
         <ul className="space-y-3">
           {highlightedParts?.map((part, index) => (
             <li key={index} className="flex items-start gap-3">
-              <div className="rounded-full bg-indigo-100 dark:bg-indigo-900/40 flex-shrink-0 p-1">
+              <div className="rounded-full bg-amber-100 dark:bg-amber-900/40 flex-shrink-0 p-1">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-4 w-4 text-indigo-600 dark:text-indigo-400"
+                  className="h-4 w-4 text-amber-600 dark:text-amber-400"
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
@@ -329,7 +329,7 @@ function ExampleTab({
                 </svg>
               </div>
               <div>
-                <code className="text-sm bg-indigo-100 dark:bg-indigo-900/40 text-indigo-800 dark:text-indigo-300 rounded px-1 py-0.5">
+                <code className="text-sm bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-300 rounded px-1 py-0.5 font-bold">
                   {part.text}
                 </code>
                 <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
@@ -466,106 +466,144 @@ export default function ExamplesPage() {
   {/* Repeat for more cards */}
 </div>`;
 
+  // Define the example sections for both side navigation and content
+  const examples = [
+    {
+      id: "dashboard-layout",
+      title: "Dashboard Layout",
+      codeSnippet: dashboardCode,
+      example: <DashboardLayout />,
+      highlightedParts: [
+        {
+          text: "flex h-screen",
+          explanation:
+            "Creates a flexible container that fills the viewport height",
+        },
+        {
+          text: "hidden md:block",
+          explanation:
+            "Responsive visibility: hidden on mobile, visible on medium screens",
+        },
+        {
+          text: "flex-1",
+          explanation: "Allows this element to grow and fill available space",
+        },
+        {
+          text: "grid grid-cols-1 md:grid-cols-3",
+          explanation:
+            "Responsive grid: 1 column on mobile, 3 columns on medium screens",
+        },
+        {
+          text: "lg:col-span-2",
+          explanation: "Makes an element span 2 columns on large screens",
+        },
+      ],
+    },
+    {
+      id: "landing-page-layout",
+      title: "Landing Page Layout",
+      codeSnippet: landingPageCode,
+      example: <LandingPageLayout />,
+      highlightedParts: [
+        {
+          text: "flex items-center justify-between",
+          explanation:
+            "Flexbox for horizontal alignment with space between items",
+        },
+        {
+          text: "hidden md:flex",
+          explanation:
+            "Responsive navigation: hidden on mobile, flex layout on medium screens",
+        },
+        {
+          text: "flex flex-col items-center text-center",
+          explanation: "Centered column layout for hero section",
+        },
+        {
+          text: "grid grid-cols-1 md:grid-cols-3",
+          explanation:
+            "Responsive grid for features: 1 column on mobile, 3 on desktop",
+        },
+        {
+          text: "max-w-4xl mx-auto",
+          explanation: "Centers a container with maximum width",
+        },
+      ],
+    },
+    {
+      id: "card-grid-layout",
+      title: "Card Grid Layout",
+      codeSnippet: cardGridCode,
+      example: <CardLayoutExample />,
+      highlightedParts: [
+        {
+          text: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4",
+          explanation:
+            "Multi-breakpoint responsive grid: adapts at small, large, and extra large screens",
+        },
+        {
+          text: "flex flex-col",
+          explanation: "Vertical flexbox layout for card content",
+        },
+        {
+          text: "flex-1",
+          explanation: "Allows description to take available vertical space",
+        },
+        {
+          text: "flex justify-between items-center",
+          explanation:
+            "Horizontal flexbox with items at opposite ends and vertically centered",
+        },
+      ],
+    },
+  ];
+
   return (
-    <div className="space-y-20">
-      <header className="mb-8">
-        <h1 className="text-4xl font-bold mb-6 bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-600 text-transparent bg-clip-text">
-          Layout Examples
-        </h1>
-        <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl">
-          Real-world examples showing how Flexbox and Grid work together to
-          create common layouts. These examples showcase the power of CSS layout
-          systems with minimal code.
-        </p>
-      </header>
+    <div className="flex flex-col lg:flex-row gap-8">
+      {/* Side Navigation - Hidden on mobile, visible on large screens */}
+      <div className="lg:w-64 shrink-0">
+        <div className="lg:sticky lg:top-24 p-4 border border-gray-200 dark:border-gray-800 rounded-lg bg-white dark:bg-gray-900">
+          <h3 className="text-lg font-semibold mb-4 pb-2 border-b border-gray-200 dark:border-gray-800 text-gray-900 dark:text-gray-100">
+            Jump to Example
+          </h3>
+          <nav className="space-y-1">
+            {examples.map((example) => (
+              <a
+                key={example.id}
+                href={`#${example.id}`}
+                className="block px-3 py-2 text-sm rounded-md transition-colors hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300"
+              >
+                {example.title}
+              </a>
+            ))}
+          </nav>
+        </div>
+      </div>
 
-      <ExampleTab
-        title="Dashboard Layout"
-        example={<DashboardLayout />}
-        codeSnippet={dashboardCode}
-        highlightedParts={[
-          {
-            text: "flex h-screen",
-            explanation:
-              "Creates a flexible container that fills the viewport height",
-          },
-          {
-            text: "hidden md:block",
-            explanation:
-              "Responsive visibility: hidden on mobile, visible on medium screens",
-          },
-          {
-            text: "flex-1",
-            explanation: "Allows this element to grow and fill available space",
-          },
-          {
-            text: "grid grid-cols-1 md:grid-cols-3",
-            explanation:
-              "Responsive grid: 1 column on mobile, 3 columns on medium screens",
-          },
-          {
-            text: "lg:col-span-2",
-            explanation: "Makes an element span 2 columns on large screens",
-          },
-        ]}
-      />
+      {/* Main Content */}
+      <div className="flex-1 space-y-20">
+        <header className="mb-8">
+          <h1 className="text-4xl font-bold mb-6 bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-600 text-transparent bg-clip-text">
+            Layout Examples
+          </h1>
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl">
+            Real-world examples showing how Flexbox and Grid work together to
+            create common layouts. These examples showcase the power of CSS
+            layout systems with minimal code.
+          </p>
+        </header>
 
-      <ExampleTab
-        title="Landing Page Layout"
-        example={<LandingPageLayout />}
-        codeSnippet={landingPageCode}
-        highlightedParts={[
-          {
-            text: "flex items-center justify-between",
-            explanation:
-              "Flexbox for horizontal alignment with space between items",
-          },
-          {
-            text: "hidden md:flex",
-            explanation:
-              "Responsive navigation: hidden on mobile, flex layout on medium screens",
-          },
-          {
-            text: "flex flex-col items-center text-center",
-            explanation: "Centered column layout for hero section",
-          },
-          {
-            text: "grid grid-cols-1 md:grid-cols-3",
-            explanation:
-              "Responsive grid for features: 1 column on mobile, 3 on desktop",
-          },
-          {
-            text: "max-w-4xl mx-auto",
-            explanation: "Centers a container with maximum width",
-          },
-        ]}
-      />
-
-      <ExampleTab
-        title="Card Grid Layout"
-        example={<CardLayoutExample />}
-        codeSnippet={cardGridCode}
-        highlightedParts={[
-          {
-            text: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4",
-            explanation:
-              "Multi-breakpoint responsive grid: adapts at small, large, and extra large screens",
-          },
-          {
-            text: "flex flex-col",
-            explanation: "Vertical flexbox layout for card content",
-          },
-          {
-            text: "flex-1",
-            explanation: "Allows description to take available vertical space",
-          },
-          {
-            text: "flex justify-between items-center",
-            explanation:
-              "Horizontal flexbox with items at opposite ends and vertically centered",
-          },
-        ]}
-      />
+        {examples.map((example) => (
+          <div key={example.id} id={example.id}>
+            <ExampleTab
+              title={example.title}
+              example={example.example}
+              codeSnippet={example.codeSnippet}
+              highlightedParts={example.highlightedParts}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
