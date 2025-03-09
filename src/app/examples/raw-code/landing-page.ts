@@ -91,3 +91,33 @@ export const landingPageCode = `
     </section>
   </div>
 `;
+
+export const landingPageHighlightedParts = [
+  {
+    text: "flex items-center justify-between",
+    explanation: "Header layout with items centered and spaced between edges",
+  },
+  {
+    text: "hidden md:flex items-center space-x-4",
+    explanation:
+      "Responsive navigation - hidden on mobile, flex layout with spacing on medium screens",
+  },
+  {
+    text: "flex flex-col items-center text-center",
+    explanation: "Centered vertical layout for hero section with centered text",
+  },
+  {
+    text: "grid grid-cols-1 md:grid-cols-3 gap-8",
+    explanation:
+      "Responsive features grid - single column on mobile, 3 columns on medium screens with generous spacing",
+  },
+  {
+    text: "max-w-4xl mx-auto",
+    explanation:
+      "Container with maximum width and horizontal auto margins for centering",
+  },
+  {
+    text: "bg-gradient-to-r from-indigo-500 to-purple-600",
+    explanation: "Beautiful gradient background for visual emphasis",
+  },
+];
