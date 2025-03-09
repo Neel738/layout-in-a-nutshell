@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ClientLayout from "./components/ClientLayout";
 import ThemeScript from "./components/ThemeScript";
+import { Footer } from "@/app/components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,20 +25,13 @@ export default function RootLayout({
         <ThemeScript />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen font-sans bg-white dark:bg-gray-950 transition-colors`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen font-sans bg-white dark:bg-black transition-colors`}
       >
         <ClientLayout>
           <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             {children}
           </main>
-          <footer className="mt-16 py-8 border-t border-gray-200 dark:border-gray-800">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <p className="text-center text-sm text-gray-500">
-                Created as a comprehensive guide to Flexbox and Grid with
-                Tailwind CSS
-              </p>
-            </div>
-          </footer>
+          <Footer />
         </ClientLayout>
       </body>
     </html>
