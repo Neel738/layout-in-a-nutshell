@@ -1,7 +1,6 @@
 "use client";
 
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import CodeDisplay from "../components/CodeDisplay";
 import CopyableCode from "../components/CopyableCode";
 
 // Example components
@@ -300,7 +299,10 @@ function ExampleTab({
           </TabsContent>
 
           <TabsContent value="code">
-            <CopyableCode code={codeSnippet} />
+            <CopyableCode
+              code={codeSnippet}
+              highlightedParts={highlightedParts}
+            />
           </TabsContent>
         </Tabs>
       </div>
@@ -309,97 +311,159 @@ function ExampleTab({
         <h3 className="text-lg font-semibold mb-4 text-indigo-700 dark:text-indigo-300">
           Key Layout Concepts
         </h3>
-        <CodeDisplay code={codeSnippet} highlightedParts={highlightedParts} />
+        <ul className="space-y-3">
+          {highlightedParts?.map((part, index) => (
+            <li key={index} className="flex items-start gap-3">
+              <div className="rounded-full bg-indigo-100 dark:bg-indigo-900/40 flex-shrink-0 p-1">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4 text-indigo-600 dark:text-indigo-400"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </div>
+              <div>
+                <code className="text-sm bg-indigo-100 dark:bg-indigo-900/40 text-indigo-800 dark:text-indigo-300 rounded px-1 py-0.5">
+                  {part.text}
+                </code>
+                <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
+                  {part.explanation}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
 }
 
 export default function ExamplesPage() {
-  const dashboardCode = `<div className="flex h-screen">
-  {/* Sidebar - hidden on mobile, shown on md screens */}
-  <div className="w-48 bg-indigo-50 dark:bg-gray-800 p-4 hidden md:block">
-    {/* Sidebar content */}
+  const dashboardCode = `// Dashboard layout with sidebar and main content
+<div className="flex h-screen">
+  {/* Sidebar: hidden on mobile, shown on medium screens */}
+  <div className="w-48 bg-indigo-50 p-4 hidden md:block">
+    <div className="space-y-4">
+      <div className="h-8 rounded bg-indigo-100"></div>
+      <div className="h-8 rounded bg-indigo-100"></div>
+      <div className="h-8 rounded bg-indigo-100"></div>
+    </div>
   </div>
   
-  {/* Main content area - takes remaining space */}
+  {/* Main content area with responsive grid */}
   <div className="flex-1 p-4 overflow-auto">
-    {/* Stats cards - 1 column on mobile, 3 on md screens */}
+    {/* Stats cards: 1 column on mobile, 3 on medium screens */}
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-      <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
-        {/* Card content */}
+      <div className="bg-white p-4 rounded-lg shadow border">
+        <div className="text-xs text-gray-500 mb-1">Total Users</div>
+        <div className="text-2xl font-bold">24,521</div>
       </div>
-      {/* More cards */}
+      <div className="bg-white p-4 rounded-lg shadow border">
+        <div className="text-xs text-gray-500 mb-1">Conversion</div>
+        <div className="text-2xl font-bold">4.6%</div>
+      </div>
+      <div className="bg-white p-4 rounded-lg shadow border">
+        <div className="text-xs text-gray-500 mb-1">Revenue</div>
+        <div className="text-2xl font-bold">$12,452</div>
+      </div>
     </div>
     
-    {/* Content panels - flexible layout */}
+    {/* Content panels with different column spans */}
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-      <div className="lg:col-span-2">
-        {/* Full width panel */}
+      <div className="bg-white p-4 rounded-lg shadow lg:col-span-2">
+        <div className="text-sm font-medium mb-3">Full-Width Panel</div>
+        <div className="h-48"></div>
       </div>
-      <div>
-        {/* Half width panel */}
+      <div className="bg-white p-4 rounded-lg shadow">
+        <div className="text-sm font-medium mb-3">Half-Width Panel</div>
       </div>
-      <div>
-        {/* Half width panel */}
+      <div className="bg-white p-4 rounded-lg shadow">
+        <div className="text-sm font-medium mb-3">Half-Width Panel</div>
       </div>
     </div>
   </div>
 </div>`;
 
-  const landingPageCode = `{/* Header with responsive navigation */}
+  const landingPageCode = `// Landing page layout with responsive sections
+{/* Responsive Header */}
 <header className="px-4 h-16 flex items-center justify-between">
-  <div>Logo</div>
+  <div className="text-xl font-bold">Brand</div>
   
-  {/* Navigation - hidden on mobile, shown on md screens */}
+  {/* Navigation: hidden on mobile, flex on medium screens */}
   <nav className="hidden md:flex items-center space-x-4">
-    {/* Nav items */}
+    <div className="text-sm">Features</div>
+    <div className="text-sm">Pricing</div>
+    <div className="text-sm">About</div>
   </nav>
   
   {/* Action buttons */}
   <div className="flex items-center space-x-2">
-    {/* Buttons */}
+    <button className="px-3 py-1 rounded">Login</button>
+    <button className="px-3 py-1 rounded">Signup</button>
   </div>
 </header>
 
 {/* Hero section with centered content */}
 <section className="px-4 py-16 flex flex-col items-center text-center">
-  <h1>Title</h1>
-  <p className="max-w-lg mb-8">Description</p>
+  <h1 className="text-3xl md:text-4xl font-bold mb-3">Your Product Tagline</h1>
+  <p className="max-w-lg mb-8">A concise description of your product and its main benefit.</p>
   <div className="flex space-x-4">
-    {/* CTA buttons */}
+    <button className="px-6 py-2 rounded-md">Get Started</button>
+    <button className="px-6 py-2 rounded-md">Learn More</button>
   </div>
 </section>
 
 {/* Features section with responsive grid */}
 <section className="px-4 py-12">
-  <h2 className="text-center mb-12">Features</h2>
+  <h2 className="text-2xl font-bold text-center mb-12">Key Features</h2>
   
-  {/* 1 column on mobile, 3 on desktop */}
+  {/* 1 column on mobile, 3 columns on desktop */}
   <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-    {/* Feature cards */}
+    <div className="flex flex-col items-center text-center">
+      <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"></div>
+      <h3 className="font-semibold mb-2">Feature One</h3>
+      <p className="text-sm">Feature description here.</p>
+    </div>
+    <div className="flex flex-col items-center text-center">
+      <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"></div>
+      <h3 className="font-semibold mb-2">Feature Two</h3>
+      <p className="text-sm">Feature description here.</p>
+    </div>
+    <div className="flex flex-col items-center text-center">
+      <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"></div>
+      <h3 className="font-semibold mb-2">Feature Three</h3>
+      <p className="text-sm">Feature description here.</p>
+    </div>
   </div>
 </section>`;
 
-  const cardGridCode = `{/* Responsive card grid */}
+  const cardGridCode = `// Responsive card grid with multiple breakpoints
 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-  {/* Cards */}
-  <div className="bg-white dark:bg-gray-800 rounded-lg shadow border flex flex-col">
+  {/* Card with flexbox layout */}
+  <div className="bg-white rounded-lg shadow border flex flex-col">
     {/* Card image */}
     <div className="h-40 bg-gradient-to-br from-indigo-200 to-purple-200"></div>
     
-    {/* Card content */}
+    {/* Card content with flex layout */}
     <div className="p-4 flex-1 flex flex-col">
-      <h3 className="font-medium mb-2">Title</h3>
-      <p className="text-sm flex-1">Description</p>
+      <h3 className="font-medium mb-2">Card Title</h3>
+      <p className="text-sm flex-1">Description that will expand to fill available space.</p>
       
-      {/* Card footer with space-between */}
+      {/* Card footer with flex justification */}
       <div className="mt-4 pt-4 border-t flex justify-between items-center">
-        <span>Label</span>
-        <button>Action</button>
+        <span className="text-xs text-gray-500">Category</span>
+        <button className="text-xs text-indigo-600 font-medium">View</button>
       </div>
     </div>
   </div>
+  
+  {/* Repeat for more cards */}
 </div>`;
 
   return (
