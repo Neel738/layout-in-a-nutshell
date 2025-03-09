@@ -28,3 +28,30 @@ export const cardGridCode = `
     </div>
   </div>
 `;
+
+export const cardGridHighlightedParts = [
+  {
+    text: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4",
+    explanation:
+      "Highly responsive grid that adapts across multiple breakpoints - 1 column on mobile, 2 on small screens, 3 on large, and 4 on extra large screens",
+  },
+  {
+    text: "flex flex-col",
+    explanation: "Vertical flexbox layout for card content structure",
+  },
+  {
+    text: "flex-1",
+    explanation:
+      "Allows card description to grow and fill available vertical space",
+  },
+  {
+    text: "flex justify-between items-center",
+    explanation:
+      "Horizontal layout for card footer with items spread apart and vertically centered",
+  },
+  {
+    text: "h-40",
+    explanation:
+      "Fixed height for card image area maintaining consistent card appearance",
+  },
+];

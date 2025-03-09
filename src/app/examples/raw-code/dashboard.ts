@@ -133,3 +133,35 @@ export const dashboardCode = `
     </div>
   </div>
 `;
+
+export const dashboardHighlightedParts = [
+  {
+    text: "flex h-[calc(500px-4rem)]",
+    explanation:
+      "Creates a flexible container with calculated height based on parent container minus header height",
+  },
+  {
+    text: "grid grid-cols-1 md:grid-cols-3 gap-4",
+    explanation:
+      "Responsive grid layout for stats cards - single column on mobile, 3 columns on medium screens",
+  },
+  {
+    text: "grid grid-cols-1 lg:grid-cols-2 gap-4",
+    explanation:
+      "Responsive grid for content panels - single column on mobile, 2 columns on large screens",
+  },
+  {
+    text: "lg:col-span-2",
+    explanation:
+      "Makes the activity chart span full width (2 columns) on large screens",
+  },
+  {
+    text: "flex items-center space-x-4",
+    explanation: "Horizontal layout with centered items and consistent spacing",
+  },
+  {
+    text: "hidden md:block",
+    explanation:
+      "Responsive sidebar visibility - hidden on mobile, visible on medium screens",
+  },
+];

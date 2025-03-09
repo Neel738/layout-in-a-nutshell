@@ -2,9 +2,18 @@
 
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import CopyableCode from "../components/CopyableCode";
-import { dashboardCode } from "@/app/examples/raw-code/dashboard";
-import { landingPageCode } from "@/app/examples/raw-code/landing-page";
-import { cardGridCode } from "@/app/examples/raw-code/card-grid";
+import {
+  dashboardCode,
+  dashboardHighlightedParts,
+} from "@/app/examples/raw-code/dashboard";
+import {
+  landingPageCode,
+  landingPageHighlightedParts,
+} from "@/app/examples/raw-code/landing-page";
+import {
+  cardGridCode,
+  cardGridHighlightedParts,
+} from "@/app/examples/raw-code/card-grid";
 
 // Example components
 const DashboardLayout = () => (
@@ -355,88 +364,21 @@ export default function ExamplesPage() {
       title: "Dashboard Layout",
       codeSnippet: dashboardCode,
       example: <DashboardLayout />,
-      highlightedParts: [
-        {
-          text: "flex h-screen",
-          explanation:
-            "Creates a flexible container that fills the viewport height",
-        },
-        {
-          text: "hidden md:block",
-          explanation:
-            "Responsive visibility: hidden on mobile, visible on medium screens",
-        },
-        {
-          text: "flex-1",
-          explanation: "Allows this element to grow and fill available space",
-        },
-        {
-          text: "grid grid-cols-1 md:grid-cols-3",
-          explanation:
-            "Responsive grid: 1 column on mobile, 3 columns on medium screens",
-        },
-        {
-          text: "lg:col-span-2",
-          explanation: "Makes an element span 2 columns on large screens",
-        },
-      ],
+      highlightedParts: dashboardHighlightedParts,
     },
     {
       id: "landing-page-layout",
       title: "Landing Page Layout",
       codeSnippet: landingPageCode,
       example: <LandingPageLayout />,
-      highlightedParts: [
-        {
-          text: "flex items-center justify-between",
-          explanation:
-            "Flexbox for horizontal alignment with space between items",
-        },
-        {
-          text: "hidden md:flex",
-          explanation:
-            "Responsive navigation: hidden on mobile, flex layout on medium screens",
-        },
-        {
-          text: "flex flex-col items-center text-center",
-          explanation: "Centered column layout for hero section",
-        },
-        {
-          text: "grid grid-cols-1 md:grid-cols-3",
-          explanation:
-            "Responsive grid for features: 1 column on mobile, 3 on desktop",
-        },
-        {
-          text: "max-w-4xl mx-auto",
-          explanation: "Centers a container with maximum width",
-        },
-      ],
+      highlightedParts: landingPageHighlightedParts,
     },
     {
       id: "card-grid-layout",
       title: "Card Grid Layout",
       codeSnippet: cardGridCode,
       example: <CardLayoutExample />,
-      highlightedParts: [
-        {
-          text: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4",
-          explanation:
-            "Multi-breakpoint responsive grid: adapts at small, large, and extra large screens",
-        },
-        {
-          text: "flex flex-col",
-          explanation: "Vertical flexbox layout for card content",
-        },
-        {
-          text: "flex-1",
-          explanation: "Allows description to take available vertical space",
-        },
-        {
-          text: "flex justify-between items-center",
-          explanation:
-            "Horizontal flexbox with items at opposite ends and vertically centered",
-        },
-      ],
+      highlightedParts: cardGridHighlightedParts,
     },
   ];
 
