@@ -111,7 +111,7 @@ export default function CopyableCode({
   };
 
   return (
-    <div className="relative w-full overflow-hidden rounded-lg border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900">
+    <div className="relative w-full overflow-hidden rounded-lg border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 max-h-[500px] overflow-y-auto">
       <div className="flex items-center justify-between px-4 py-2 border-b border-gray-200 dark:border-gray-800 bg-gray-100 dark:bg-gray-800">
         <span className="text-xs font-medium text-gray-500 dark:text-gray-400">
           {language}
