@@ -68,12 +68,53 @@ export default function CodeDisplay({
       parts.push(
         <span
           key={`highlight-${idx}`}
-          className={`bg-amber-200 dark:bg-amber-800/60 text-amber-900 dark:text-amber-100 rounded px-1.5 font-semibold group relative shadow-sm`}
-          title={highlight.explanation || ""}
+          className={`bg-amber-200 dark:bg-amber-800/60 text-amber-900 dark:text-amber-100 rounded px-1.5 font-semibold relative cursor-help`}
+          onMouseEnter={(e) => {
+            const tooltip = e.currentTarget.querySelector(
+              '[role="tooltip"]'
+            ) as HTMLElement;
+            if (tooltip) {
+              const rect = e.currentTarget.getBoundingClientRect();
+              const tooltipRect = tooltip.getBoundingClientRect();
+
+              // Position above by default
+              let top = rect.top - tooltipRect.height - 10;
+              let left = rect.left + (rect.width - tooltipRect.width) / 2;
+
+              // If would be clipped at top, position below instead
+              if (top < 10) {
+                top = rect.bottom + 10;
+                tooltip.classList.add("tooltip-below");
+              } else {
+                tooltip.classList.remove("tooltip-below");
+              }
+
+              // Ensure left edge stays in viewport
+              left = Math.max(
+                10,
+                Math.min(left, window.innerWidth - tooltipRect.width - 10)
+              );
+
+              tooltip.style.left = `${left}px`;
+              tooltip.style.top = `${top}px`;
+              tooltip.style.opacity = "1";
+            }
+          }}
+          onMouseLeave={(e) => {
+            const tooltip = e.currentTarget.querySelector(
+              '[role="tooltip"]'
+            ) as HTMLElement;
+            if (tooltip) {
+              tooltip.style.opacity = "0";
+            }
+          }}
         >
           {highlight.originalText}
           {highlight.explanation && (
-            <span className="absolute -top-16 left-0 bg-white dark:bg-gray-900 border-2 border-amber-200 dark:border-amber-800 p-2.5 rounded-lg text-xs text-gray-800 dark:text-gray-100 opacity-0 group-hover:opacity-100 transition-opacity w-max max-w-[300px] shadow-lg pointer-events-none z-10">
+            <span
+              role="tooltip"
+              className="fixed bg-white dark:bg-gray-900 border-2 border-amber-200 dark:border-amber-800 p-2.5 rounded-lg text-xs text-gray-800 dark:text-gray-100 opacity-0 transition-opacity duration-150 shadow-lg pointer-events-none z-50 max-w-[300px] before:content-[''] before:absolute before:w-3 before:h-3 before:bg-inherit before:border-l-2 before:border-t-2 before:border-amber-200 before:dark:border-amber-800 before:rotate-45 before:-bottom-[7px] before:left-1/2 before:-translate-x-1/2 before:z-[-1] tooltip-below:before:rotate-[225deg] tooltip-below:before:-top-[7px] tooltip-below:before:bottom-auto"
+            >
               {highlight.explanation}
             </span>
           )}

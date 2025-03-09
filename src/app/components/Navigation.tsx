@@ -20,7 +20,7 @@ export default function Navigation() {
         <div className="flex items-center justify-between h-16">
           <div className="flex-shrink-0 flex items-center">
             <span className="text-xl font-bold bg-gradient-to-r from-indigo-500 to-purple-600 text-transparent bg-clip-text">
-              CSS in a Nutshell
+              Layout in a Nutshell
             </span>
           </div>
           <div className="hidden md:flex md:items-center">
