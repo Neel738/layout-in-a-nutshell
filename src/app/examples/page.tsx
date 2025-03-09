@@ -2,6 +2,9 @@
 
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import CopyableCode from "../components/CopyableCode";
+import { dashboardCode } from "@/app/examples/raw-code/dashboard";
+import { landingPageCode } from "@/app/examples/raw-code/landing-page";
+import { cardGridCode } from "@/app/examples/raw-code/card-grid";
 
 // Example components
 const DashboardLayout = () => (
@@ -345,127 +348,6 @@ function ExampleTab({
 }
 
 export default function ExamplesPage() {
-  const dashboardCode = `// Dashboard layout with sidebar and main content
-<div className="flex h-screen">
-  {/* Sidebar: hidden on mobile, shown on medium screens */}
-  <div className="w-48 bg-indigo-50 p-4 hidden md:block">
-    <div className="space-y-4">
-      <div className="h-8 rounded bg-indigo-100"></div>
-      <div className="h-8 rounded bg-indigo-100"></div>
-      <div className="h-8 rounded bg-indigo-100"></div>
-    </div>
-  </div>
-  
-  {/* Main content area with responsive grid */}
-  <div className="flex-1 p-4 overflow-auto">
-    {/* Stats cards: 1 column on mobile, 3 on medium screens */}
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-      <div className="bg-white p-4 rounded-lg shadow border">
-        <div className="text-xs text-gray-500 mb-1">Total Users</div>
-        <div className="text-2xl font-bold">24,521</div>
-      </div>
-      <div className="bg-white p-4 rounded-lg shadow border">
-        <div className="text-xs text-gray-500 mb-1">Conversion</div>
-        <div className="text-2xl font-bold">4.6%</div>
-      </div>
-      <div className="bg-white p-4 rounded-lg shadow border">
-        <div className="text-xs text-gray-500 mb-1">Revenue</div>
-        <div className="text-2xl font-bold">$12,452</div>
-      </div>
-    </div>
-    
-    {/* Content panels with different column spans */}
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-      <div className="bg-white p-4 rounded-lg shadow lg:col-span-2">
-        <div className="text-sm font-medium mb-3">Full-Width Panel</div>
-        <div className="h-48"></div>
-      </div>
-      <div className="bg-white p-4 rounded-lg shadow">
-        <div className="text-sm font-medium mb-3">Half-Width Panel</div>
-      </div>
-      <div className="bg-white p-4 rounded-lg shadow">
-        <div className="text-sm font-medium mb-3">Half-Width Panel</div>
-      </div>
-    </div>
-  </div>
-</div>`;
-
-  const landingPageCode = `// Landing page layout with responsive sections
-{/* Responsive Header */}
-<header className="px-4 h-16 flex items-center justify-between">
-  <div className="text-xl font-bold">Brand</div>
-  
-  {/* Navigation: hidden on mobile, flex on medium screens */}
-  <nav className="hidden md:flex items-center space-x-4">
-    <div className="text-sm">Features</div>
-    <div className="text-sm">Pricing</div>
-    <div className="text-sm">About</div>
-  </nav>
-  
-  {/* Action buttons */}
-  <div className="flex items-center space-x-2">
-    <button className="px-3 py-1 rounded">Login</button>
-    <button className="px-3 py-1 rounded">Signup</button>
-  </div>
-</header>
-
-{/* Hero section with centered content */}
-<section className="px-4 py-16 flex flex-col items-center text-center">
-  <h1 className="text-3xl md:text-4xl font-bold mb-3">Your Product Tagline</h1>
-  <p className="max-w-lg mb-8">A concise description of your product and its main benefit.</p>
-  <div className="flex space-x-4">
-    <button className="px-6 py-2 rounded-md">Get Started</button>
-    <button className="px-6 py-2 rounded-md">Learn More</button>
-  </div>
-</section>
-
-{/* Features section with responsive grid */}
-<section className="px-4 py-12">
-  <h2 className="text-2xl font-bold text-center mb-12">Key Features</h2>
-  
-  {/* 1 column on mobile, 3 columns on desktop */}
-  <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-    <div className="flex flex-col items-center text-center">
-      <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"></div>
-      <h3 className="font-semibold mb-2">Feature One</h3>
-      <p className="text-sm">Feature description here.</p>
-    </div>
-    <div className="flex flex-col items-center text-center">
-      <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"></div>
-      <h3 className="font-semibold mb-2">Feature Two</h3>
-      <p className="text-sm">Feature description here.</p>
-    </div>
-    <div className="flex flex-col items-center text-center">
-      <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"></div>
-      <h3 className="font-semibold mb-2">Feature Three</h3>
-      <p className="text-sm">Feature description here.</p>
-    </div>
-  </div>
-</section>`;
-
-  const cardGridCode = `// Responsive card grid with multiple breakpoints
-<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-  {/* Card with flexbox layout */}
-  <div className="bg-white rounded-lg shadow border flex flex-col">
-    {/* Card image */}
-    <div className="h-40 bg-gradient-to-br from-indigo-200 to-purple-200"></div>
-    
-    {/* Card content with flex layout */}
-    <div className="p-4 flex-1 flex flex-col">
-      <h3 className="font-medium mb-2">Card Title</h3>
-      <p className="text-sm flex-1">Description that will expand to fill available space.</p>
-      
-      {/* Card footer with flex justification */}
-      <div className="mt-4 pt-4 border-t flex justify-between items-center">
-        <span className="text-xs text-gray-500">Category</span>
-        <button className="text-xs text-indigo-600 font-medium">View</button>
-      </div>
-    </div>
-  </div>
-  
-  {/* Repeat for more cards */}
-</div>`;
-
   // Define the example sections for both side navigation and content
   const examples = [
     {
