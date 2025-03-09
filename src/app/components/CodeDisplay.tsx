@@ -16,7 +16,7 @@ export default function CodeDisplay({
       return <code>{code}</code>;
     }
 
-    let processedCode = code;
+    const processedCode = code;
     const highlights: {
       index: number;
       highlightedText: string;
@@ -26,25 +26,20 @@ export default function CodeDisplay({
 
     // Replace all highlighted parts with markers and store their positions
     highlightedParts.forEach((part, idx) => {
-      const marker = `__HIGHLIGHT_${idx}__`;
-      const regex = new RegExp(
-        part.text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"),
-        "g"
-      );
+      // Escape the text for regex and ensure it's a literal match
+      const escapedText = part.text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      const regex = new RegExp(escapedText, "g");
 
       // Find all occurrences and store them
       let match;
-      while ((match = regex.exec(processedCode)) !== null) {
+      while ((match = regex.exec(code)) !== null) {
         highlights.push({
           index: match.index,
-          highlightedText: marker,
+          highlightedText: part.text,
           originalText: part.text,
           explanation: part.explanation,
         });
       }
-
-      // Replace in the code
-      processedCode = processedCode.replace(regex, marker);
     });
 
     // Sort highlights by their position in the code
