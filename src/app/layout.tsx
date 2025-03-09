@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "FlexGrid Guide | Mastering Flexbox and Grid with Tailwind CSS",
+  title: "CSS in a Nutshell | Mastering Flexbox and Grid with Tailwind CSS",
   description:
     "A comprehensive visual guide for mastering Flexbox and Grid layouts with Tailwind CSS",
 };
@@ -26,6 +26,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              // Initialize dark mode based on user preference
+              (function() {
+                if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                  document.documentElement.classList.add('dark');
+                } else {
+                  document.documentElement.classList.remove('dark');
+                }
+              })();
+            `,
+          }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen font-sans`}
       >
