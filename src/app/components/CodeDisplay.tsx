@@ -25,7 +25,7 @@ export default function CodeDisplay({
     }[] = [];
 
     // Replace all highlighted parts with markers and store their positions
-    highlightedParts.forEach((part, idx) => {
+    highlightedParts.forEach((part) => {
       // Escape the text for regex and ensure it's a literal match
       const escapedText = part.text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
       const regex = new RegExp(escapedText, "g");
